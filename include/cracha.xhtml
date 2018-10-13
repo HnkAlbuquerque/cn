@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="Expires" content="0"/>
+    <meta http-equiv="Refresh" content="10000" />
+    <meta name="Resource-Type" content="document"/>
+    <meta name="Distribution" content="global"/>
+    <meta name="Author" content="Os Gideoes Internacionais no Brasil"/>
+    <meta name="Copyright" content="Copyright (c) by Os Gideoes Internacionais no Brasil"/>
+    <link rel="shortcut icon" type="image/x-icon" href="gideoes.ico" />
+    <title>:: #titulo# ::</title>
+    <style type="text/css">
+        * { padding:0; margin:0; font: 100%/1.25 Arial, Helvetica, sans-serif; }
+        .title, .subtitle { font-weight: bold; }
+        .title { font-size:16px; }
+        .subtitle { font-size:14px; }
+        .notation { font-size:13px; }
+        .nome { font: 100%/1.25 Arial, Helvetica, sans-serif; }
+        u { font-size:80%; }
+        .nomecracha { font:20px "Lucida Grande", Verdana, Lucida, Helvetica, Arial, sans-serif;}
+        .cracha {
+            background-image:url(imgs/logo_gid_20porcento_cracha.gif);
+            background-repeat:no-repeat;
+            background-position:130px 90px;
+            text-align: center;
+        }
+        .cracha_body,
+        .cracha_body_title,
+        .cracha_body_moeda,
+        .cracha_body_valor {
+            text-align: left;
+            font-size: 12pt;
+        }
+        .cracha_body {
+            border-bottom:1px dotted #999;
+        }
+        .cracha_body_title {
+            padding-top: 5px;
+            font-size: small;
+            text-decoration: underline;
+        }
+        .cracha_body_moeda {
+            text-align: center;
+            width: 25px;
+        }
+        .cracha_body_valor {
+            text-align: right;
+            width: 70px;
+        }
+    </style>
+    <script type="text/javascript">
+        function fAutoPrint() {
+            var NS = (navigator.appName == "Netscape");
+            var VERSION = parseInt(navigator.appVersion);
+
+            if (NS) {
+                this.print() ;
+            } else {
+                var WebBrowser = '<OBJECT ID="WebBrowser1" WIDTH="0" HEIGHT="0" CLASSID="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2"></OBJECT>';
+                document.body.insertAdjacentHTML('beforeEnd', WebBrowser);
+                WebBrowser1.ExecWB(6,2);//Use a 1 vs. a 2 for a prompting dialog box WebBrowser1.outerHTML = "";
+            }
+        }
+    </script>
+</head>
+
+<body onload="fAutoPrint();">
+<div style="width:100%; margin:0; page-break-after: always; text-align: center;">
+    <img src='imgs/logo_gid.gif' style="margin-left:50px; float: right;" alt="" />
+    <img src="#logo#" style="float: left;" alt="" />
+    <span class='subtitle'>Os Gide&otilde;es Internacionais no Brasil</span><br />
+    <span class='title'>#titulo_evento#</span>
+    <br /><br /><br />
+    #recibo#
+    <div style="text-align:right; font-size: 70%; z-index:1; border-top: 1px solid #BBB;">Controle: #referencia#</div>
+</div>
+</body>
+</html>

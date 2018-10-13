@@ -1,0 +1,28 @@
+
+    
+    <script type="text/javascript">
+        function fAutoPrint() {
+            var NS = (navigator.appName == "Netscape");
+            var VERSION = parseInt(navigator.appVersion);
+
+            if (NS) {
+                this.print() ;
+            } else {
+                var WebBrowser = '<OBJECT ID="WebBrowser1" WIDTH="0" HEIGHT="0" CLASSID="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2"></OBJECT>';
+                document.body.insertAdjacentHTML('beforeEnd', WebBrowser);
+                WebBrowser1.ExecWB(6,2);//Use a 1 vs. a 2 for a prompting dialog box WebBrowser1.outerHTML = "";
+            }
+        }
+    </script>
+
+
+    <div class="pag" style="width: 60mm; background-color: #EEE;" onload="fAutoPrint();">
+        <span class="title">#apelido#</span><br/>
+        #nome_campo#<br/>
+        #transporte#
+        <div style="text-align: right; font-size: 8px;margin-top: 8px; padding-right:2mm;">
+            <br/>
+            #referencia#
+        </div>
+    </div>
+

@@ -1,0 +1,367 @@
+// $insId = getInsId($1stowner,$tpLogin2,$ev_id,$numSession);
+
+           // echo $insId;
+            
+            /*$sqlInsert = "INSERT INTO ev_inscricao(owner_id,owner_tipo,ev_id,ins_status,ins_guiche) 
+                            VALUES ($1stowner,'$tpLogin2',$ev_id,'1','$numSession');select CurrVal('public.ev_inscricao_ins_id_seq') as id;"; 
+           
+            $result = $db->SetFetchMode(ADODB_FETCH_ASSOC);
+            $result = $db->Execute($sqlInsert);
+            $temp = $result -> fields; 
+
+            for ($i = 1; $i <= $_POST['repeat']; $i++ )
+            {
+                if (isset($_POST["insTipo_$i"]))
+                {
+                        switch($_POST["insTipo_$i"])
+                        {
+                            case "G":
+
+
+                                $gNum = substr($_POST["insNum_$i"],-5);
+                                $gNome = $_POST["insNome_$i"];
+                                $gFullNum = $_POST["insNum_$i"];
+
+                                if ($_POST["insJanta_$i"] == null)
+                                {
+                                    $janta = "false";
+                                }
+                                else
+                                {
+                                    $janta = "true";
+                                    $qdeJanta++;
+
+                                }
+
+                                if ($_POST["valDescIns_$i"] > 0) { $qdeDescIns++;};
+                                if ($_POST["valDescJan_$i"] > 0) { $qdeDescJan++;};
+
+
+
+                                //$insNum = substr($_POST["insNum_$i"], -5);
+                                $sqlInsert = "INSERT INTO ev_inscricao_detail(ins_id,owner_id,owner_tipo,ins_jantar,ins_seq) 
+                                                VALUES ({$temp['id']},$gNum,'G',$janta,$i)";
+                                                $qdeInsGid++;
+
+                                // echo $sqlInsert; 
+                               // echo $sqlInsert."<br><br>";                 
+                                $result = $db->Execute($sqlInsert);
+
+                                break;
+
+                            case "A":
+                                
+                                //////////////AUX 
+
+                                $aNum = substr($_POST["insNum_$i"],-5);
+                                $aNome = $_POST["insNome_$i"];
+                                $aFullNum = $_POST["insNum_$i"];
+
+                                if ($_POST["insJanta_$i"] == null)
+                                {
+                                    $janta = "false";
+                                }
+                                else
+                                {
+                                    $janta = "true";
+                                    $qdeJanta++;
+                                }
+
+                        
+                                if ($_POST["valDescIns_$i"] > 0) { $qdeDescIns++;};
+                                if ($_POST["valDescJan_$i"] > 0) { $qdeDescJan++;};
+
+
+                                //$insNum = substr($_POST["insNum_$i"], -5);
+                                $sqlInsert = "INSERT INTO ev_inscricao_detail(ins_id,owner_id,owner_tipo,ins_jantar,ins_seq) 
+                                                VALUES ({$temp['id']},$aNum,'A',$janta,$i)";
+                                $qdeInsAux++;
+
+                                $result = $db->Execute($sqlInsert); 
+
+
+    
+
+                                break;
+                                //////////////AUX 
+
+                            case "V":
+
+                                //////////////VIS
+                                $vNome = addslashes($_POST["insNome_$i"]);
+                                $vAlias = addslashes($_POST["insAlias_$i"]);
+                                $vPas = addslashes($_POST["insPast_$i"]);
+
+                                if ($_POST["insPast_$i"] == 1)
+                                {
+                                    $vPas2 = 'true';
+                                }else
+                                {
+                                    $vPas2 = 'false';
+                                }
+
+                                
+                                        $sqlInsert = "INSERT INTO visitante(vis_tipo,ins_id,vis_nome,vis_pastor,vis_apelido)
+                                                        VALUES ('V',{$temp['id']},'$vNome','$vPas','$vAlias'); select CurrVal('public.visitante_vis_id_seq') as vis_id;";
+                                        //echo $sqlInsert."<br>";
+
+                                                       // echo $sqlInsert."<br><br>";   
+                                        $result2 = $db->SetFetchMode(ADODB_FETCH_ASSOC);
+                                        $result2 = $db->Execute($sqlInsert);
+                                        $tempV = $result2 -> fields; 
+
+
+
+                                                if ($_POST["insJanta_$i"] == null)
+                                                {
+                                                    $janta = "false";
+                                                }
+                                                else
+                                                {
+                                                    $janta = "true";
+                                                    $qdeJanta++;
+                                                }
+
+                                        
+                                                //$insNum = substr($_POST["insNum_$i"], -5);
+                                                $sqlInsert = "INSERT INTO ev_inscricao_detail(ins_id,owner_id,owner_tipo,ins_jantar,ins_pastor,ins_seq) 
+                                                               VALUES ({$temp['id']},{$tempV['vis_id']},'V',$janta,$vPas2,$i)";
+                                                $qdeInsVis++;
+                                                //echo $sqlInsert."<br>";
+
+                                                $result = $db->Execute($sqlInsert);
+
+
+                                
+                                break;
+
+                            case "C":
+                                ///////////// CRIANÇA
+                                $cNome = addslashes($_POST["insNome_$i"]);
+                                $vAlias = addslashes($_POST["insAlias_$i"]);
+                                $vIdade = $_POST["insIdade_$i"];
+                                $idOptCrianca = $_POST["val_idopt_$i"];
+
+                                
+
+                                $valOptCrianca = $_POST["val_$i"];
+
+                             //   echo $valOptCrianca." < vr ---------- id > ".$idOptCrianca."<br><br>";
+
+                                //echo $cNome;
+
+                                $vFebre = $_POST["insFebre_$i"];
+                                $vFebreDesc = addslashes($_POST["insFebreDesc_$i"]);
+                                $vRestricao = $_POST["insRestricao_$i"];
+                                $vRestricaoDesc = addslashes($_POST["insRestricaoDesc_$i"]);
+                                $vAlergia = $_POST["insAlergia_$i"];
+                                $vAlergiaDesc = addslashes($_POST["insAlergiaDesc_$i"]);
+                                
+                                        $sqlInsert = "INSERT INTO visitante(vis_tipo,ins_id,vis_nome,vis_idade,vis_febre,vis_febre_med,vis_rest_alim,vis_rest_alim_qual,
+                                                    vis_apelido,vis_alergia,vis_alergia_qual) 
+                                                    VALUES ('C',{$temp['id']},'$cNome',$vIdade,'$vFebre','$vFebreDesc','$vRestricao','$vRestricaoDesc','$vAlias','$vAlergia',
+                                                    '$vAlergiaDesc'); select CurrVal('public.visitante_vis_id_seq') as vis_id;";
+                                        //echo "<br>".$sqlInsert."<br>";
+                                        $result3 = $db->SetFetchMode(ADODB_FETCH_ASSOC);
+                                        $result3 = $db->Execute($sqlInsert);
+                                        $tempC = $result3 -> fields; 
+                                        
+                               // echo $sqlInsert."<br><br>";   
+                                        //$insNum = substr($_POST["insNum_$i"], -5);
+                                        $sqlInsert = "INSERT INTO ev_inscricao_detail(ins_id,owner_id,owner_tipo,ins_seq) 
+                                                       VALUES ({$temp['id']},{$tempC['vis_id']},'C',$i)";
+
+                                       // echo $sqlInsert."<br><br>";   
+
+                                        $result = $db->Execute($sqlInsert);
+
+                                        $sqlInscricaoOptions = "insert into ev_inscricao_options (ins_id,opt_id,quantidade,vr_unitario) 
+                                        values ({$temp['id']},$idOptCrianca,1,$valOptCrianca);";
+                                       // echo $sqlInscricaoOptions." -------- ";
+                                        $resultInscricaoOptions = $db->Execute($sqlInscricaoOptions);
+
+                                            
+                                break; 
+
+                            default:
+                               // echo "nothing";
+                                break;
+                        }
+                }
+            } // FECHA FOR
+
+           // $rowsBB = $rowsBB."<tr><td style=border-bottom:1px dotted #CCC;>Hospedagem</td>".$vrTotal.",00<td align=right></td></tr>";
+
+            if (isset($_POST['valorHospIdOptions']) && $_POST['valorHospIdOptions'] > 0 )
+                {
+                    $qdeHotel = 1;
+                }
+
+
+            foreach ($resultadoEventoOptions as $row) 
+            {
+
+                $eventoOptions = $resultadoEventoOptions -> fields;
+                switch ($eventoOptions['aplicacao']) {
+                    case '0':
+                        if ($qdeHotel > 0) {
+                            $sqlInscricaoOptions = "insert into ev_inscricao_options (ins_id,opt_id,quantidade,vr_unitario)
+                                        values ({$temp['id']},{$_POST['valorHospIdOptions']},$qdeHotel,{$_POST['valorHosp']});";
+                            $resultInscricaoOptions = $db->Execute($sqlInscricaoOptions);
+
+                          //  echo $sqlInscricaoOptions."<br><br>";
+                        }
+                        break;
+                    case '1':
+                        if ($qdeJanta > 0) {
+                            $sqlInscricaoOptions = "insert into ev_inscricao_options (ins_id,opt_id,quantidade,vr_unitario)
+                                        values ({$temp['id']},{$eventoOptions['id']},$qdeJanta,{$eventoOptions['valor']});";
+                            $resultInscricaoOptions = $db->Execute($sqlInscricaoOptions);
+
+                          //  echo $sqlInscricaoOptions."<br><br>";
+                        }
+                        break;
+
+                    case '2':
+                        if ($qdeInsGid > 0) {
+                            $sqlInscricaoOptions = "insert into ev_inscricao_options (ins_id,opt_id,quantidade,vr_unitario)
+                                        values ({$temp['id']},{$eventoOptions['id']},$qdeInsGid,{$eventoOptions['valor']});";
+                            $resultInscricaoOptions = $db->Execute($sqlInscricaoOptions);
+                          //  echo $sqlInscricaoOptions."<br><br>";
+                        }
+                        break;
+
+                    case '3':
+                        if ($qdeInsAux > 0) {
+                            $sqlInscricaoOptions = "insert into ev_inscricao_options (ins_id,opt_id,quantidade,vr_unitario)
+                                        values ({$temp['id']},{$eventoOptions['id']},$qdeInsAux,{$eventoOptions['valor']});";
+                            $resultInscricaoOptions = $db->Execute($sqlInscricaoOptions);
+                          //  echo $sqlInscricaoOptions."<br><br>";
+                        }
+                        break;
+
+                    case '6':
+                        if ($qdeInsVis > 0) {
+                            $sqlInscricaoOptions = "insert into ev_inscricao_options (ins_id,opt_id,quantidade,vr_unitario)
+                                        values ({$temp['id']},{$eventoOptions['id']},$qdeInsVis,{$eventoOptions['valor']});";
+                            $resultInscricaoOptions = $db->Execute($sqlInscricaoOptions);
+                           // echo $sqlInscricaoOptions."<br><br>";
+                        }
+                        break;
+
+                    case '7':
+                        if ($qdeDescIns > 0) {
+                            $sqlInscricaoOptions = "insert into ev_inscricao_options (ins_id,opt_id,quantidade,vr_unitario)
+                                        values ({$temp['id']},{$eventoOptions['id']},$qdeDescIns,{$eventoOptions['valor']});";
+                            $resultInscricaoOptions = $db->Execute($sqlInscricaoOptions);
+                           // echo $sqlInscricaoOptions."<br><br>";
+                        }
+                        break;
+                    
+                    case '8':
+                        if ($qdeDescJan > 0) {
+                            $sqlInscricaoOptions = "insert into ev_inscricao_options (ins_id,opt_id,quantidade,vr_unitario)
+                                        values ({$temp['id']},{$eventoOptions['id']},$qdeDescJan,{$eventoOptions['valor']});";
+                            $resultInscricaoOptions = $db->Execute($sqlInscricaoOptions);
+                           // echo $sqlInscricaoOptions."<br><br>";
+                        }
+                        break;
+                    
+                    
+                    default:
+
+                        break;
+                }
+            }
+
+
+           // echo $sqlInscricaoOptions."<br><br>";  
+
+        ///// LISTA INSCRIÇÃO
+            $sqlSelIns = "select a.as_nome,eid.ins_valor 
+                            from ev_inscricao ei 
+                            inner join ev_inscricao_detail eid on ei.ins_id = eid.ins_id 
+                            inner join associado a on eid.owner_id = a.as_cod and eid.owner_tipo = a.as_tipo 
+                            where ei.ins_id = {$temp['id']}  
+                            union all 
+                            select v.vis_nome,eid.ins_valor 
+                            from ev_inscricao ei 
+                            inner join ev_inscricao_detail eid on ei.ins_id = eid.ins_id 
+                            inner join visitante v on eid.owner_id = v.vis_id and eid.owner_tipo = v.vis_tipo 
+                            where ei.ins_id = {$temp['id']} ";
+                $resultIns = $db->SetFetchMode(ADODB_FETCH_ASSOC);
+                $resultIns = $db->Execute($sqlSelIns);
+              //  $tempIns = $resultIns -> fields; 
+
+            $sqlSelJan = "select a.as_nome,eid.valor_jantar 
+                            from ev_inscricao ei 
+                            inner join ev_inscricao_detail eid on ei.ins_id = eid.ins_id and eid.ins_jantar = true
+                            inner join associado a on eid.owner_id = a.as_cod and eid.owner_tipo = a.as_tipo 
+                            where ei.ins_id = {$temp['id']} 
+                            union all 
+                            select v.vis_nome,eid.valor_jantar 
+                            from ev_inscricao ei 
+                            inner join ev_inscricao_detail eid on ei.ins_id = eid.ins_id and eid.ins_jantar = true
+                            inner join visitante v on eid.owner_id = v.vis_id and eid.owner_tipo = v.vis_tipo 
+                            where ei.ins_id = {$temp['id']} ";
+                $resultJan = $db->SetFetchMode(ADODB_FETCH_ASSOC);
+                $resultJan = $db->Execute($sqlSelJan);
+               $tempJan = $resultIns -> fields; 
+
+                ?>
+                    <h3>Inscrição: <?php echo $temp['id']; ?></h3>
+                    <hr>
+                    <h2>Inscrições</h2>
+                    <div class="table-responsive"> 
+                        <table>
+                            <tr>
+                                <th>
+                                    Nome
+                                </th>
+                                
+                            </tr>
+                                    <?php
+                                        //echo $result;
+                                        foreach ($resultIns as $row) {
+                                            
+                                            $tempIns = $resultIns -> fields;
+                                    ?>
+                                    <tr align="right">
+                                        <td><?php echo $tempIns['as_nome']; ?></td>
+
+                                    </tr>
+                                    <?php
+                                    }
+                                    ?>
+
+                        </table>
+                        
+                        <hr>
+                        <h2>Jantar com Pastores</h2>
+                        <table>
+                            <tr>
+                                <th>
+                                    Nome
+                                </th>
+                                
+                            </tr>
+                                    <?php
+                                        //echo $result;
+                                        foreach ($resultJan as $row) {
+                                            
+                                            $tempJan = $resultJan -> fields;
+                                    ?>
+                                <tr align="right">
+                                    <td><?php echo $tempJan['as_nome']; ?></td>
+                                </tr>
+                                    <?php
+                                    }
+                                    ?>
+                        </table>
+
+                        <hr>
+
+
+                    </div>
+                    
+                <?php*/
